@@ -10,7 +10,7 @@ import "./App.css";
 function App() {
   return (
     <Router>
-      <Nav />
+       <Nav /> {/*We put this outside as it will be on all pages */}
       <>
         <Route exact path="/" component={Home} />
         <Route  exact path="/sign-up" component={Signup} />
