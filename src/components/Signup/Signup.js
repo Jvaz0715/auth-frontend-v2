@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import "./Signup.css";
 
 export class Signup extends Component {
-   
    state = {
       firstName: "",
       lastName: "",
@@ -11,14 +10,30 @@ export class Signup extends Component {
       username: "",
       password: "",
       confirmPassword: "",
+      firstNameError: "",
+      lastNameError: "",
+      emailError: "",
+      usernameError: "",
+      passwordError: "",
+      confirmPasswordError: "",
    }
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
    handleOnChange = (event) => {
-      console.log(event.target.name)
-      this.setState({
-         [event.target.name]: event.target.value,
-      })
+      // REF: this.setState can take a callback as a second argument
+         // this.setState is async so if there is anything below it, it will run BEFORE the setState
+         // validation should then occur inside of the callback inside of setState to avoid outdated setState
+      this.setState(
+         {
+            [event.target.name]: event.target.value,
+         },
+         () => {
+            // conduct client-side validation inside of the callback
+            // console.log(event.target.name, ": ", event.target.value)
+         }
+      )
+
+      
    };
 
    // for submit button
@@ -26,6 +41,53 @@ export class Signup extends Component {
       event.preventDefault(); //this is necessary to avoid the app from refreshing
       console.log(this.state)
    }
+
+   // handleOnBlur will detect if you leave an input field without having inputted the proper data
+      // handleOnBlur will then be inserted into each of the input fields as the event for onBlur={}
+   handleOnBlur = (event) => {
+      console.log(event.target.name)
+      console.log("Handle onBlur has been triggered")
+
+      if(this.state[event.target.name].length === 0){
+         this.setState({
+            [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`
+         })
+      }
+      // checking if input field is empty to deliver error message but below will cause alot of unnecessary code and for all inputs to go onBlur at once, the ABOVE is dynamic to target individual onBLurs
+      /*if(this.state.firstName.length === 0) {
+         this.setState({
+            firstNameError: "First Name cannot be empty"
+         })
+      }
+      if(this.state.lastName.length === 0) {
+         this.setState({
+            lastNameError: "Last Name cannot be empty"
+         })
+      }
+      if(this.state.email.length === 0) {
+         this.setState({
+            emailError: "Email cannot be empty"
+         })
+      }
+      if(this.state.username.length === 0) {
+         this.setState({
+            usernameError: "Username cannot be empty"
+         })
+      }
+      if(this.state.password.length === 0) {
+         this.setState({
+            passwordError: "Password cannot be empty"
+         })
+      }
+      if(this.state.confirmPassword.length === 0) {
+         this.setState({
+            confirmPasswordError: "Confirm password cannot be empty"
+         })
+      }*/
+
+   };
+
+   
    // ============== Render ==============
    render() {
 
@@ -36,6 +98,12 @@ export class Signup extends Component {
          username,
          password,
          confirmPassword,
+         firstNameError,
+         lastNameError,
+         emailError,
+         usernameError,
+         passwordError,
+         confirmPasswordError
       } = this.state;
 
       return (
@@ -55,7 +123,13 @@ export class Signup extends Component {
                            placeholder="First Name"
                            name="firstName"
                            onChange={this.handleOnChange}
+                           onBlur={this.handleOnBlur}
+                           autoFocus
                         />
+                        {/* below will only appear if an error has occured in the given input */}
+                        <div className="errorMessage">
+                           {firstNameError && firstNameError}
+                        </div>
                      </div>
                      {/* last name */}
                      <div className="inline-container">
@@ -67,7 +141,11 @@ export class Signup extends Component {
                            placeholder="Last Name"
                            name="lastName"
                            onChange={this.handleOnChange}
+                           onBlur={this.handleOnBlur}
                         />
+                        <div className="errorMessage">
+                           {lastNameError && lastNameError}
+                        </div>
                      </div>
                      {/* email */}
                      <div className="form-group-block">
@@ -80,7 +158,11 @@ export class Signup extends Component {
                               placeholder="Email"
                               name="email"
                               onChange={this.handleOnChange}
+                              onBlur={this.handleOnBlur}
                            />
+                           <div className="errorMessage">
+                           {emailError && emailError}
+                        </div>
                         </div>
                      </div>
                      {/* username */}
@@ -94,7 +176,11 @@ export class Signup extends Component {
                               placeholder="Username"
                               name="username"
                               onChange={this.handleOnChange}
+                              onBlur={this.handleOnBlur}
                            />
+                           <div className="errorMessage">
+                           {usernameError && usernameError}
+                        </div>
                         </div>
                      </div>
 
@@ -109,7 +195,11 @@ export class Signup extends Component {
                               placeholder="Password"
                               name="password"
                               onChange={this.handleOnChange}
+                              onBlur={this.handleOnBlur}
                            />
+                           <div className="errorMessage">
+                           {passwordError && passwordError}
+                        </div>
                         </div>
                      </div>
 
@@ -124,7 +214,11 @@ export class Signup extends Component {
                               placeholder="Confirm Password"
                               name="confirmPassword"
                               onChange={this.handleOnChange}
+                              onBlur={this.handleOnBlur}
                            />
+                           <div className="errorMessage">
+                           {confirmPasswordError && confirmPasswordError}
+                        </div>
                         </div>
                      </div>
                   </div>

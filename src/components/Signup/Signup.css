@@ -54,6 +54,15 @@
    border: none;
 }
 
+.errorMessage {
+   color: red;
+   text-shadow: none;
+   font-weight: normal;
+   font-style: italic;
+   font-size: 14px;
+   margin-top: 2px;
+}
+
 
 .button-container {
    margin-top: 10px;
