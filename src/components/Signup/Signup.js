@@ -17,6 +17,7 @@ export class Signup extends Component {
       usernameError: "",
       passwordError: "",
       confirmPasswordError: "",
+      onConfirmPasswordFocus: false,
    }
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
@@ -36,77 +37,21 @@ export class Signup extends Component {
 
             // email validation
             if (event.target.name === "email") {
-               if (this.state.email.length > 0) {
-                  if(isEmail(this.state.email)){
-                     this.setState({
-                        emailError: "",
-                     })
-                  } else {
-                     this.setState({
-                        emailError: "Please enter an email with valid email format"
-                     })
-                  }
-               } else {
-                  this.setState({
-                     emailError: "Email cannot be empty"
-                  })
-               }
+               this.handleEmailInput(event);
             };
 
             // username validation
             if(event.target.name === "username"){
-               if(this.state.username.length > 0){
-                  if(isAlphanumeric(this.state.username)) {
-                     this.setState({
-                        usernameError: "",
-                     })
-                  } else {
-                     this.setState({
-                        usernameError: "Username can only have alphabet and numbers"
-                     })
-                  }
-               } else {
-                  this.setState({
-                     usernameError: "Username cannot be empty"
-                  })
-               }
+               this.handleUsernameInput(event);
             };
 
             // password validation
             if(event.target.name === "password"){
-               if(this.state.password.length > 0){
-                  if(isStrongPassword(this.state.password)) {
-                     this.setState({
-                        passwordError: ""
-                     })
-                  } else {
-                     this.setState({
-                        passwordError: "Password must be longer than 8 characters, and include 1 uppercase, 1 lowercase, 1 number and special character"
-                     })
-                  }
-               } else {
-                  this.setState({
-                     passwordError: "Password cannot be empty"
-                  })
-               }
+               this.handlePasswordInput(event);
             };
             // confirmPassword Validation
             if(event.target.name === "confirmPassword") {
-               if(this.state.confirmPassword.length > 0){
-                  if(this.state.confirmPassword === this.state.password){
-                     this.setState({
-                        confirmPasswordError: ""
-                     })
-                  } else {
-                     this.setState({
-                        confirmPasswordError: "Passwords not matching"
-                     })
-                  }
-               } else {
-                  this.setState({
-                     confirmPasswordError: "Confirm Password cannot be empty"
-                  })
-               }
+               this.handleConfirmPasswordInput(event);
             };
          }
       )
@@ -132,11 +77,95 @@ export class Signup extends Component {
       }
    };
 
+   handleEmailInput = (event) => {
+      if (this.state.email.length > 0) {
+         if(isEmail(this.state.email)){
+            this.setState({
+               emailError: "",
+            })
+         } else {
+            this.setState({
+               emailError: "Please enter an email with valid email format"
+            })
+         }
+      } else {
+         this.setState({
+            emailError: "Email cannot be empty"
+         })
+      }
+   };
+
+   handleUsernameInput = (event) => {
+      if(this.state.username.length > 0){
+         if(isAlphanumeric(this.state.username)) {
+            this.setState({
+               usernameError: "",
+            })
+         } else {
+            this.setState({
+               usernameError: "Username can only have alphabet and numbers"
+            })
+         }
+      } else {
+         this.setState({
+            usernameError: "Username cannot be empty"
+         })
+      }
+   };
+
+   handlePasswordInput = (event) => {
+      // below is checkin if confirmpassword has been touched and passwords do not match
+      if(this.state.onConfirmPasswordFocus) {
+         if (this.state.password !== this.state.confirmPassword){
+            this.setState({
+               confirmPasswordError: "Passwords not matching"
+            });
+         } else {
+            this.setState({
+               confirmPasswordError: "",
+            })
+         }
+      }
+      if(this.state.password.length > 0){
+         if(isStrongPassword(this.state.password)) {
+            this.setState({
+               passwordError: ""
+            })
+         } else {
+            this.setState({
+               passwordError: "Password must be longer than 8 characters, and include 1 uppercase, 1 lowercase, 1 number and special character"
+            })
+         }
+      } else {
+         this.setState({
+            passwordError: "Password cannot be empty"
+         })
+      }
+   };
+
+   handleConfirmPasswordInput = (event) => {
+      if(this.state.confirmPassword.length > 0){
+         if(this.state.confirmPassword === this.state.password){
+            this.setState({
+               confirmPasswordError: ""
+            })
+         } else {
+            this.setState({
+               confirmPasswordError: "Passwords not matching"
+            })
+         }
+      } else {
+         this.setState({
+            confirmPasswordError: "Confirm Password cannot be empty"
+         })
+      }
+   };
+
    // for submit button
    handleOnSubmit = (event) => {
       event.preventDefault(); //this is necessary to avoid the app from refreshing
       console.log(this.state)
-   }
+   };
 
    // handleOnBlur will detect if you leave an input field without having inputted the proper data
       // handleOnBlur will then be inserted into each of the input fields as the event for onBlur={}
@@ -183,6 +212,12 @@ export class Signup extends Component {
 
    };
 
+   // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered
+   handleConfirmPasswordOnFocus = () => {
+      this.setState({
+         onConfirmPasswordFocus: true,
+      })
+   };
    
    // ============== Render ==============
    render() {
@@ -311,6 +346,7 @@ export class Signup extends Component {
                               name="confirmPassword"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
+                              onFocus={this.handleConfirmPasswordOnFocus}
                            />
                            <div className="errorMessage">
                            {confirmPasswordError && confirmPasswordError}
