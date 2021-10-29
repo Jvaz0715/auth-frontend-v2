@@ -68,12 +68,14 @@ export class Signup extends Component {
             }) 
          } else {
             this.setState({
-               [`${event.target.name}Error`]: `${event.target.placeholder} can only be alphabet characters`
+               [`${event.target.name}Error`]: `${event.target.placeholder} can only be alphabet characters`,
+               isButtonDisabled: true,
             })
          }
       } else {
          this.setState({
-            [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`
+            [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`,
+            isButtonDisabled: true,
          })
       }
    };
@@ -86,12 +88,14 @@ export class Signup extends Component {
             })
          } else {
             this.setState({
-               emailError: "Please enter an email with valid email format"
+               emailError: "Please enter an email with valid email format",
+               isButtonDisabled: true,
             })
          }
       } else {
          this.setState({
-            emailError: "Email cannot be empty"
+            emailError: "Email cannot be empty",
+            isButtonDisabled: true,
          })
       }
    };
@@ -104,12 +108,14 @@ export class Signup extends Component {
             })
          } else {
             this.setState({
-               usernameError: "Username can only have alphabet and numbers"
+               usernameError: "Username can only have alphabet and numbers",
+               isButtonDisabled: true,
             })
          }
       } else {
          this.setState({
-            usernameError: "Username cannot be empty"
+            usernameError: "Username cannot be empty",
+            isButtonDisabled: true,
          })
       }
    };
@@ -119,7 +125,8 @@ export class Signup extends Component {
       if(this.state.onConfirmPasswordFocus) {
          if (this.state.password !== this.state.confirmPassword){
             this.setState({
-               confirmPasswordError: "Passwords not matching"
+               confirmPasswordError: "Passwords not matching",
+               isButtonDisabled: true,
             });
          } else {
             this.setState({
@@ -134,12 +141,14 @@ export class Signup extends Component {
             })
          } else {
             this.setState({
-               passwordError: "Password must be longer than 8 characters, and include 1 uppercase, 1 lowercase, 1 number and special character"
+               passwordError: "Password must be longer than 8 characters, and include 1 uppercase, 1 lowercase, 1 number and special character",
+               isButtonDisabled: true,
             })
          }
       } else {
          this.setState({
-            passwordError: "Password cannot be empty"
+            passwordError: "Password cannot be empty",
+            isButtonDisabled: true,
          })
       }
    };
@@ -152,12 +161,14 @@ export class Signup extends Component {
             })
          } else {
             this.setState({
-               confirmPasswordError: "Passwords not matching"
+               confirmPasswordError: "Passwords not matching",
+               isButtonDisabled: true,
             })
          }
       } else {
          this.setState({
-            confirmPasswordError: "Confirm Password cannot be empty"
+            confirmPasswordError: "Confirm Password cannot be empty",
+            isButtonDisabled: true,
          })
       }
    };
@@ -224,22 +235,10 @@ export class Signup extends Component {
    };
 
    // handle enabling button
+   componentDidUpdate(prevProps, prevState){
 
-   handleButtonEnabled = () => {
-      if (
-         this.state.firstNameError.length === 0 &&
-         this.state.lastNameError.length === 0 &&
-         this.state.emailError.length === 0 &&
-         this.state.usernameError.length === 0 &&
-         this.state.passwordError.length === 0 &&
-         this.state.confirmPasswordError.length === 0
-      ) {
-         this.setState({
-            isButtonDisabled: false,
-         })
-      }
    };
-   
+
    // ============== Render ==============
    render() {
 
