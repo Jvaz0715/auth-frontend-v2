@@ -18,6 +18,7 @@ export class Signup extends Component {
       passwordError: "",
       confirmPasswordError: "",
       onConfirmPasswordFocus: false,
+      isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
    }
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
@@ -114,7 +115,7 @@ export class Signup extends Component {
    };
 
    handlePasswordInput = (event) => {
-      // below is checkin if confirmpassword has been touched and passwords do not match
+      // below is checking if confirmPassword has been touched and passwords do not match
       if(this.state.onConfirmPasswordFocus) {
          if (this.state.password !== this.state.confirmPassword){
             this.setState({
@@ -220,6 +221,23 @@ export class Signup extends Component {
             onConfirmPasswordFocus: true,
          })
       };
+   };
+
+   // handle enabling button
+
+   handleButtonEnabled = () => {
+      if (
+         this.state.firstNameError.length === 0 &&
+         this.state.lastNameError.length === 0 &&
+         this.state.emailError.length === 0 &&
+         this.state.usernameError.length === 0 &&
+         this.state.passwordError.length === 0 &&
+         this.state.confirmPasswordError.length === 0
+      ) {
+         this.setState({
+            isButtonDisabled: false,
+         })
+      }
    };
    
    // ============== Render ==============
@@ -360,7 +378,7 @@ export class Signup extends Component {
 
                   {/* submit button */}
                   <div className="button-container">
-                     <button>Submit</button>
+                     <button type="submit" disabled={this.state.isButtonDisabled}>Submit</button>
                   </div>
 
                </form>

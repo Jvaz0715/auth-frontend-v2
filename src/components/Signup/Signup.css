@@ -83,3 +83,7 @@
 .button-container button:hover {
    background-color: gray;
 }
+
+.button-container button:disabled {
+   background-color: gray;
+}
