@@ -17,7 +17,12 @@ export class Signup extends Component {
       usernameError: "",
       passwordError: "",
       confirmPasswordError: "",
-      confirmPasswordFocus: false,
+      firstNameOnFocus: false,
+      lastNameOnFocus: false,
+      emailOnFocus: false,
+      usernameOnFocus: false,
+      passwordOnFocus: false,
+      confirmPasswordOnFocus: false,
       isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
    }
 
@@ -122,7 +127,7 @@ export class Signup extends Component {
 
    handlePasswordInput = (event) => {
       // below is checking if confirmPassword has been touched and passwords do not match
-      if(this.state.confirmPasswordFocus) {
+      if(this.state.confirmPasswordOnFocus) {
          if (this.state.password !== this.state.confirmPassword){
             this.setState({
                confirmPasswordError: "Passwords not matching",
@@ -224,15 +229,24 @@ export class Signup extends Component {
 
    };
 
-   // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered
-   handleConfirmPasswordFocus = () => {
-      // so should only be triggered once
-      if(!this.state.confirmPasswordFocus){
+   // dynamically handles when inputs have been "touched" to change onFocus for button enable/disable
+   handleInputOnFocus = (event) => {
+      if(!this.state[`${event.target.name}OnFocus`]){
          this.setState({
-            confirmPasswordFocus: true,
+            [`${event.target.name}OnFocus`]: true,
          })
-      };
+      }
    };
+
+   // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered---> no longer needed due to dynamic inputOnFocus func handleInputOnFocus()
+   // handleConfirmPasswordFocus = () => {
+   //    // so should only be triggered once
+   //    if(!this.state.confirmPasswordFocus){
+   //       this.setState({
+   //          confirmPasswordFocus: true,
+   //       })
+   //    };
+   // };
 
    // handle enabling button
    componentDidUpdate(prevProps, prevState){
@@ -275,9 +289,10 @@ export class Signup extends Component {
                            name="firstName"
                            onChange={this.handleOnChange}
                            onBlur={this.handleOnBlur}
+                           onFocus={this.handleInputOnFocus}
                            autoFocus
                         />
-                        {/* below will only appear if an error has occured in the given input */}
+                        {/* below will only appear if an error has occurred in the given input */}
                         <div className="errorMessage">
                            {firstNameError && firstNameError}
                         </div>
@@ -293,6 +308,7 @@ export class Signup extends Component {
                            name="lastName"
                            onChange={this.handleOnChange}
                            onBlur={this.handleOnBlur}
+                           onFocus={this.handleInputOnFocus}
                         />
                         <div className="errorMessage">
                            {lastNameError && lastNameError}
@@ -310,6 +326,7 @@ export class Signup extends Component {
                               name="email"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                            {emailError && emailError}
@@ -328,6 +345,7 @@ export class Signup extends Component {
                               name="username"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                            {usernameError && usernameError}
@@ -347,6 +365,7 @@ export class Signup extends Component {
                               name="password"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                            {passwordError && passwordError}
@@ -366,7 +385,7 @@ export class Signup extends Component {
                               name="confirmPassword"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
-                              onFocus={this.handleConfirmPasswordFocus}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                            {confirmPasswordError && confirmPasswordError}
