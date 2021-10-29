@@ -214,9 +214,12 @@ export class Signup extends Component {
 
    // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered
    handleConfirmPasswordOnFocus = () => {
-      this.setState({
-         onConfirmPasswordFocus: true,
-      })
+      // so should only be triggered once
+      if(!this.state.onConfirmPasswordFocus){
+         this.setState({
+            onConfirmPasswordFocus: true,
+         })
+      };
    };
    
    // ============== Render ==============
