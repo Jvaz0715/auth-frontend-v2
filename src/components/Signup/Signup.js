@@ -28,8 +28,18 @@ export class Signup extends Component {
             [event.target.name]: event.target.value,
          },
          () => {
-            // conduct client-side validation inside of the callback
-            // console.log(event.target.name, ": ", event.target.value)
+            // below we are working to remove errormessage of empty input once user starts typing
+            if (event.target.name === "firstName") {
+               if (this.state.firstName.length > 0) {
+                  this.setState({
+                     firstNameError: ""
+                  })
+               } else {
+                  this.setState({
+                     firstNameError: `${event.target.placeholder} cannot be empty`
+                  })
+               }
+            }
          }
       )
 
