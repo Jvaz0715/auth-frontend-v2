@@ -1,19 +1,76 @@
-.container {
-   border: 3px solid black;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-}
-
 .form-text {
    margin-bottom: 20px;
    font-size: 32px;
+
 }
 
-/* .form-div {
-   border: 3px solid green;
+.container {
+   /* border: 3px solid black; */
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   /* margin-top: 20px; */
+}
+
+.form-div {
+   /* border: 3px solid blue; */
+   width: 400px;
+   background-color: rgba(86, 133, 98, 0.774);
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 1px 1px 2px rgb(187, 187, 187);
+}
+
+.form {
+   /* border: 3px solid green; */
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
-} */
+   width: 400px;
+   padding: 20px;
+}
+
+.inline-container,
+.block-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   /* border: 2px solid yellowgreen; */
+   margin-bottom: 5px;
+   font-weight: bold;
+   color: white;
+   text-shadow: 1px 1px 1px black;
+}
+
+.inline-container input,
+.block-container input {
+   width: 300px;
+   margin-top: 5px;
+   height: 24px;
+   border-radius: 5px;
+   border: none;
+}
+
+
+.button-container {
+   margin-top: 10px;
+}
+
+.button-container button {
+   width: 200px;
+   color: white;
+   padding: 5px;
+   font-weight: bold;
+   font-size: 16px;
+   border: none;
+   border-radius: 5px;
+   box-shadow: 1px 1px 1px gray;
+   background-color: rgb(81, 115, 155);
+}
+
+.button-container button:hover {
+   background-color: gray;
+}
