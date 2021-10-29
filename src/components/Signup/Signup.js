@@ -250,7 +250,34 @@ export class Signup extends Component {
 
    // handle enabling button
    componentDidUpdate(prevProps, prevState){
-
+      if(prevState.isButtonDisabled === true) {
+         // we should only run the below if the prevState of the buttondisable is true
+            // otherwise, we will run into an infinite loop once all fields are true and we click into confirmpassword
+         // first we have to check that each field has been "touched", since initial state of error will be empty
+         if (
+            this.state.firstNameOnFocus &&
+            this.state.lastNameOnFocus &&
+            this.state.emailOnFocus &&
+            this.state.usernameOnFocus &&
+            this.state.passwordOnFocus &&
+            this.state.confirmPasswordOnFocus 
+         ) {
+            // if the fields have been touched && there were no errors in filling out the form
+            if(
+               this.state.firstNameError.length === 0 &&
+               this.state.lastNameError.length === 0 &&
+               this.state.emailError.length === 0 &&
+               this.state.usernameError.length === 0 &&
+               this.state.passwordError.length === 0 &&
+               // this.state.confirmPasswordError.length === 0
+               this.state.password === this.state.confirmPassword
+            ) {
+               this.setState({
+                  isButtonDisabled: false,
+               })
+            }
+         }
+      }
    };
 
    // ============== Render ==============
