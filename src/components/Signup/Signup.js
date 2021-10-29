@@ -187,15 +187,15 @@ export class Signup extends Component {
    // handleOnBlur will detect if you leave an input field without having inputted the proper data
       // handleOnBlur will then be inserted into each of the input fields as the event for onBlur={}
    handleOnBlur = (event) => {
-      console.log(event.target.name)
-      console.log("Handle onBlur has been triggered")
+      // console.log(event.target.name)
+      // console.log("Handle onBlur has been triggered")
 
       if(this.state[event.target.name].length === 0){
          this.setState({
             [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`
          })
       }
-      // checking if input field is empty to deliver error message but below will cause alot of unnecessary code and for all inputs to go onBlur at once, the ABOVE is dynamic to target individual onBLurs
+      // checking if input field is empty to deliver error message but below will cause a lot of unnecessary code and for all inputs to go onBlur at once, the ABOVE is dynamic to target individual onBLurs
       /*if(this.state.firstName.length === 0) {
          this.setState({
             firstNameError: "First Name cannot be empty"
