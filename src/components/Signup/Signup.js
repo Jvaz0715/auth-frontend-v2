@@ -17,7 +17,7 @@ export class Signup extends Component {
       usernameError: "",
       passwordError: "",
       confirmPasswordError: "",
-      onConfirmPasswordFocus: false,
+      confirmPasswordFocus: false,
       isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
    }
 
@@ -122,7 +122,7 @@ export class Signup extends Component {
 
    handlePasswordInput = (event) => {
       // below is checking if confirmPassword has been touched and passwords do not match
-      if(this.state.onConfirmPasswordFocus) {
+      if(this.state.confirmPasswordFocus) {
          if (this.state.password !== this.state.confirmPassword){
             this.setState({
                confirmPasswordError: "Passwords not matching",
@@ -225,11 +225,11 @@ export class Signup extends Component {
    };
 
    // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered
-   handleConfirmPasswordOnFocus = () => {
+   handleConfirmPasswordFocus = () => {
       // so should only be triggered once
-      if(!this.state.onConfirmPasswordFocus){
+      if(!this.state.confirmPasswordFocus){
          this.setState({
-            onConfirmPasswordFocus: true,
+            confirmPasswordFocus: true,
          })
       };
    };
@@ -366,7 +366,7 @@ export class Signup extends Component {
                               name="confirmPassword"
                               onChange={this.handleOnChange}
                               onBlur={this.handleOnBlur}
-                              onFocus={this.handleConfirmPasswordOnFocus}
+                              onFocus={this.handleConfirmPasswordFocus}
                            />
                            <div className="errorMessage">
                            {confirmPasswordError && confirmPasswordError}
