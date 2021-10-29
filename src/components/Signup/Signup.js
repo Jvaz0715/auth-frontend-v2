@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; //validator will help us validate proper data input on client-side
 
 import "./Signup.css";
 
@@ -28,22 +29,107 @@ export class Signup extends Component {
             [event.target.name]: event.target.value,
          },
          () => {
-            // below we are working to remove errormessage of empty input once user starts typing
-            if (event.target.name === "firstName") {
-               if (this.state.firstName.length > 0) {
-                  this.setState({
-                     firstNameError: ""
-                  })
+            // below we are working to remove errorMessage of empty input once user starts typing for first and last name
+            if (event.target.name === "firstName" || event.target.name === "lastName") {
+               this.handleFirstNameAndLastNameInput(event);
+            };
+
+            // email validation
+            if (event.target.name === "email") {
+               if (this.state.email.length > 0) {
+                  if(isEmail(this.state.email)){
+                     this.setState({
+                        emailError: "",
+                     })
+                  } else {
+                     this.setState({
+                        emailError: "Please enter an email with valid email format"
+                     })
+                  }
                } else {
                   this.setState({
-                     firstNameError: `${event.target.placeholder} cannot be empty`
+                     emailError: "Email cannot be empty"
                   })
                }
-            }
+            };
+
+            // username validation
+            if(event.target.name === "username"){
+               if(this.state.username.length > 0){
+                  if(isAlphanumeric(this.state.username)) {
+                     this.setState({
+                        usernameError: "",
+                     })
+                  } else {
+                     this.setState({
+                        usernameError: "Username can only have alphabet and numbers"
+                     })
+                  }
+               } else {
+                  this.setState({
+                     usernameError: "Username cannot be empty"
+                  })
+               }
+            };
+
+            // password validation
+            if(event.target.name === "password"){
+               if(this.state.password.length > 0){
+                  if(isStrongPassword(this.state.password)) {
+                     this.setState({
+                        passwordError: ""
+                     })
+                  } else {
+                     this.setState({
+                        passwordError: "Password must be longer than 8 characters, and include 1 uppercase, 1 lowercase, 1 number and special character"
+                     })
+                  }
+               } else {
+                  this.setState({
+                     passwordError: "Password cannot be empty"
+                  })
+               }
+            };
+            // confirmPassword Validation
+            if(event.target.name === "confirmPassword") {
+               if(this.state.confirmPassword.length > 0){
+                  if(this.state.confirmPassword === this.state.password){
+                     this.setState({
+                        confirmPasswordError: ""
+                     })
+                  } else {
+                     this.setState({
+                        confirmPasswordError: "Passwords not matching"
+                     })
+                  }
+               } else {
+                  this.setState({
+                     confirmPasswordError: "Confirm Password cannot be empty"
+                  })
+               }
+            };
          }
       )
+   };
 
-      
+   // for first and last name validation to be used in the callback function of handleOnChange
+      // we are doing this because our handleOnChange callback is growing larger
+   handleFirstNameAndLastNameInput = (event) => {
+      if (this.state[event.target.name].length > 0) {
+         if(isAlpha(this.state[event.target.name])){
+            this.setState({
+               [`${event.target.name}Error`]: "",
+            }) 
+         } else {
+            this.setState({
+               [`${event.target.name}Error`]: `${event.target.placeholder} can only be alphabet characters`
+            })
+         }
+      } else {
+         this.setState({
+            [`${event.target.name}Error`]: `${event.target.placeholder} cannot be empty`
+         })
+      }
    };
 
    // for submit button
