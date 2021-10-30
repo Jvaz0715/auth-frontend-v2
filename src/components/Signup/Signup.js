@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; //validator will help us validate proper data input on client-side
 
+// import Axios from "../utils/Axios";
+import axios from "axios";
+
 import "./Signup.css";
 
 export class Signup extends Component {
@@ -179,9 +182,26 @@ export class Signup extends Component {
    };
 
    // for submit button
-   handleOnSubmit = (event) => {
+   // we will use our Axios instance here to add valid users to our database in the backend
+   handleOnSubmit = async (event) => {
       event.preventDefault(); //this is necessary to avoid the app from refreshing
-      console.log(this.state)
+      try {
+         // this we get from the input from this.state, and will be our second argument in the post request
+         const userInputObj = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+         };
+
+         // const success = await Axios.post("/api/users/sign-up", userInputObj);
+         const success = await axios.post("http://localhost:8080/api/users/sign-up", userInputObj);
+         console.log(success);
+
+      } catch(e) {
+         console.log(e)
+      }
    };
 
    // handleOnBlur will detect if you leave an input field without having inputted the proper data
@@ -237,16 +257,6 @@ export class Signup extends Component {
          })
       }
    };
-
-   // the below is done for UX, that if the client has already inputted a confirmpassword, and then changes the password, this will be triggered---> no longer needed due to dynamic inputOnFocus func handleInputOnFocus()
-   // handleConfirmPasswordFocus = () => {
-   //    // so should only be triggered once
-   //    if(!this.state.confirmPasswordFocus){
-   //       this.setState({
-   //          confirmPasswordFocus: true,
-   //       })
-   //    };
-   // };
 
    // handle enabling button
    componentDidUpdate(prevProps, prevState){
