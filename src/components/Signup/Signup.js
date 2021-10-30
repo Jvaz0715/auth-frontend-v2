@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; //validator will help us validate proper data input on client-side
 
-// import Axios from "../utils/Axios";
-import axios from "axios";
+import Axios from "../utils/Axios";
+// import axios from "axios";
 
 import "./Signup.css";
 
@@ -195,8 +195,8 @@ export class Signup extends Component {
             password: this.state.password,
          };
 
-         // const success = await Axios.post("/api/users/sign-up", userInputObj);
-         const success = await axios.post("http://localhost:8080/api/users/sign-up", userInputObj);
+         const success = await Axios.post("/api/users/sign-up", userInputObj);
+         // const success = await axios.post("http://localhost:8080/api/users/sign-up", userInputObj);
          console.log(success);
 
       } catch(e) {
