@@ -27,7 +27,7 @@ export class Signup extends Component {
       passwordOnFocus: false,
       confirmPasswordOnFocus: false,
       isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
-   }
+   };
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
    handleOnChange = (event) => {
