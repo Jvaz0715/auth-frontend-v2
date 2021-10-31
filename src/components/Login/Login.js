@@ -92,7 +92,7 @@ export class Login extends Component {
             password: this.state.password,
          })
 
-         console.log(result)
+         // console.log(result)
          toast.success(result.data.message, {
             position: "top-center",
             autoClose: 5000,
@@ -103,16 +103,28 @@ export class Login extends Component {
             progress: undefined,
          });
       } catch(e) {
-         console.log(e.response.data.payload)
-         toast.error(e.response.data.payload, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-         });
+         // we need to differentiate between status code 429 and 404 as one is wrong password and another is rate limit exceeded
+         if(e.response.status === 429) {
+            toast.error(e.response.data, {
+               position: "top-center",
+               autoClose: 5000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+            });
+         } else {
+            toast.error(e.response.data.payload, {
+               position: "top-center",
+               autoClose: 5000,
+               hideProgressBar: false,
+               closeOnClick: true,
+               pauseOnHover: true,
+               draggable: true,
+               progress: undefined,
+            });
+         }
       }
    }
 
