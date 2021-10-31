@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { isEmpty, isEmail } from "validator"
-;// import { toast } from 'react-toastify';
-// import Axios from "../utils/Axios";
+import { isEmpty, isEmail } from "validator";
+import { toast } from 'react-toastify';
+import Axios from "../utils/Axios";
 
 export class Login extends Component {
    state = {
@@ -81,6 +81,40 @@ export class Login extends Component {
          })
       }
    };
+
+   // for form submit
+   // always give onSubmit functions an event.preventDefault() to avoid auto refresh on submit
+   handleOnSubmit = async (event) => {
+      event.preventDefault();
+      try {
+         let result = await Axios.post("api/users/login", {
+            email: this.state.email,
+            password: this.state.password,
+         })
+
+         console.log(result)
+         toast.success(result.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+      } catch(e) {
+         console.log(e.response.data.payload)
+         toast.error(e.response.data.payload, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+         });
+      }
+   }
 
    render() {
       const {
