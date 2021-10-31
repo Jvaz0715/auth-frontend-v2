@@ -9,6 +9,8 @@ export class Login extends Component {
       password: "",
       emailError: "",
       passwordError: "",
+      emailOnFocus: false,
+      passwordOnFocus: false,
       isButtonDisabled: true,
    };
 
@@ -20,7 +22,8 @@ export class Login extends Component {
          if (event.target.name === "email"){
             if(isEmpty(this.state.email)){
                this.setState({
-                  emailError: "Email cannot be empty"
+                  emailError: "Email cannot be empty",
+                  isButtonDisabled: true,
                })
             } else {
                if(isEmail(this.state.email)){
@@ -30,6 +33,7 @@ export class Login extends Component {
                } else {
                   this.setState({
                      emailError: "Please enter a valid email address",
+                     isButtonDisabled: true,
                   })
                }
             }
@@ -39,7 +43,8 @@ export class Login extends Component {
          if (event.target.name === "password") {
             if (isEmpty(this.state.password)){
                this.setState({
-                  passwordError: "Password cannot be empty"
+                  passwordError: "Password cannot be empty",
+                  isButtonDisabled: true,
                })
             } else {
                this.setState({
@@ -48,16 +53,33 @@ export class Login extends Component {
             }
          };
 
-         // button disable toggle
-         if (
-            this.state.emailError.length === 0 &&
-            this.state.passwordError.length === 0
-         ) {
-            this.setState({
-               isButtonDisabled: false,
-            })
-         }
+         // button disable toggle with onFocus touched true and false
+         if(this.state.emailOnFocus && this.state.passwordOnFocus) {
+            if (
+               this.state.emailError.length === 0 &&
+               this.state.passwordError.length === 0 &&
+               this.state.password.length >= 8
+            ) {
+               this.setState({
+                  isButtonDisabled: false,
+               })
+            } else {
+               this.setState({
+                  isButtonDisabled: true,
+               })
+            }
+         };
+         
       });
+   };
+   // if we don't use this function, our button will be enabled as soon as our app is running because technically there are no errors
+   // we need to make sure there are no errors after each input has been "touched"
+   handleInputOnFocus = (event) => {
+      if (!this.state[`${event.target.name}onFocus`]) {
+         this.setState({
+            [`${event.target.name}OnFocus`]: true,
+         })
+      }
    };
 
    render() {
@@ -87,6 +109,7 @@ export class Login extends Component {
                               placeholder="Email"
                               name="email"
                               onChange={this.handleOnChange}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                               {emailError && emailError}
@@ -105,6 +128,7 @@ export class Login extends Component {
                               placeholder="Password"
                               name="password"
                               onChange={this.handleOnChange}
+                              onFocus={this.handleInputOnFocus}
                            />
                            <div className="errorMessage">
                               {passwordError && passwordError}
