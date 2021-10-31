@@ -93,6 +93,10 @@ export class Login extends Component {
          })
 
          // console.log(result)
+         // we also need to add our jwt token to localstorage to be logged in
+         let jwtToken = result.data.payload;
+         localStorage.setItem("jwtToken", jwtToken);
+         
          toast.success(result.data.message, {
             position: "top-center",
             autoClose: 5000,
