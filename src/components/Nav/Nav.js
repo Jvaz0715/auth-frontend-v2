@@ -4,6 +4,10 @@ import { Link, NavLink } from "react-router-dom";
 import "./Nav.css";
 
 export class Nav extends Component {
+   state = {
+      isAuth: false,
+   }
+   
    render() {
       return (
          <nav>
@@ -15,10 +19,22 @@ export class Nav extends Component {
             <div className="right-side-nav">
                <ul>
                   <li>
-                     <NavLink activeClassName="selected" to="/sign-up">Sign Up</NavLink>
+                     {/* make ternary that checks if user is authorized or not */}
+                     {this.state.isAuth ? (
+                        <NavLink activeClassName="selected" to="/profile">Profile</NavLink>
+                     ):(
+                        <NavLink activeClassName="selected" to="/sign-up">Sign Up</NavLink>
+                     )}
+                     
                   </li>
                   <li>
-                     <NavLink activeClassName="selected" to="/login">Login</NavLink>
+                     {/* make ternary that checks if user is authorized or not */}
+                     {this.state.isAuth ? (
+                        <NavLink activeClassName="selected" to="/logout">Logout</NavLink>
+                     ):(
+                        <NavLink activeClassName="selected" to="/login">Login</NavLink>
+                     )}
+                     
                   </li>
                </ul>
             </div>

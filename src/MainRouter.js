@@ -6,8 +6,10 @@ import Home from './components/Home/Home';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 
-const MainRouter = () => {
+const MainRouter = (props) => {
+   console.log(props)
    return(
+      
       <Router>
          <Nav /> {/*We put this outside as it will be on all pages */}
          <>
