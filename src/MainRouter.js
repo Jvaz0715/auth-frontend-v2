@@ -43,7 +43,13 @@ const MainRouter = (props) => {
                component={Movie}
             />
 
-            <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} />
+            {/* <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} /> */}
+            <PrivateRoute 
+               user={props.user}
+               exact
+               path="/movie-detail/:movieTitle" 
+               component={MovieDetail}
+            />
          </>
       </Router>
    )
