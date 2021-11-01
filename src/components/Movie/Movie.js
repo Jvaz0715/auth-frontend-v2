@@ -6,16 +6,18 @@ import "./Movie.css";
 export class Movie extends Component {
    state = {
       movie: "",
+      moviesResultArray: [],
    };
 
    handleOnChange = (e) => {
-      this.setState({
-         movie: e.target.value,
-      },
-      () => {
-         // console.log(this.state.movie)
-      }
-      )
+      this.setState(
+         {
+            movie: e.target.value,
+         },
+         () => {
+            // console.log(this.state.movie)
+         }
+      );
    };
 
    // because this is not a form we dont need event.preventDefault()... only if form we use preventdefault
@@ -24,11 +26,28 @@ export class Movie extends Component {
       try {
          let searchResults = await axios.get(`https://omdbapi.com/?apiKey=${process.env.REACT_APP_MOVIE_API}&s=${this.state.movie}`)
 
-         console.log(searchResults)
+         console.log(searchResults.data.Search)
+         this.setState({
+            moviesResultArray: searchResults.data.Search,
+         })
       } catch(e) {
          console.log(e)
       }
+   };
+
+   // along with rendering results withing our render, we could also create a function that will just be called in render
+
+   showMovieList = () => {
+      return this.state.moviesResultArray.map(item => {
+         return (
+            <div className="movie-info-div" key={item.imdbID} style={{width: 300 }}>
+               <img src={item.Poster} alt={item.Title}/>
+               {item.Title}
+            </div>
+         )
+      })
    }
+
    // ================= render =================
    render() {
       return (
@@ -41,6 +60,10 @@ export class Movie extends Component {
                   onChange={this.handleOnChange}
                />
                <button onClick={this.onSubmit}>Search</button>
+            </div>
+
+            <div className="movie-results-div">
+               {this.showMovieList()}
             </div>
          </div>
       )
