@@ -4,10 +4,8 @@ import { Link, NavLink } from "react-router-dom";
 import "./Nav.css";
 
 export class Nav extends Component {
-   state = {
-      isAuth: false,
-   }
-   
+   // we use props passed down to check if user is null or true to change what nav bar we will display 
+   //this.props.user
    render() {
       return (
          <nav>
@@ -20,7 +18,7 @@ export class Nav extends Component {
                <ul>
                   <li>
                      {/* make ternary that checks if user is authorized or not */}
-                     {this.state.isAuth ? (
+                     {this.props.user ? (
                         <NavLink activeClassName="selected" to="/profile">Profile</NavLink>
                      ):(
                         <NavLink activeClassName="selected" to="/sign-up">Sign Up</NavLink>
@@ -29,7 +27,7 @@ export class Nav extends Component {
                   </li>
                   <li>
                      {/* make ternary that checks if user is authorized or not */}
-                     {this.state.isAuth ? (
+                     {this.props.user ? (
                         <NavLink activeClassName="selected" to="/logout">Logout</NavLink>
                      ):(
                         <NavLink activeClassName="selected" to="/login">Login</NavLink>

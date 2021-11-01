@@ -139,7 +139,7 @@ export class Login extends Component {
          emailError,
          passwordError
       } = this.state;
-
+      console.log(this.props)
       return (
          <div className="container">
             <div className="form-text">Login</div>
