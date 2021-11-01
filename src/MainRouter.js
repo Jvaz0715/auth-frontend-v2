@@ -7,6 +7,7 @@ import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import Movie from './components/Movie/Movie';
 import MovieDetail from './components/Movie/MovieDetail';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const MainRouter = (props) => {
    // console.log(props)
@@ -31,7 +32,8 @@ const MainRouter = (props) => {
                // we also pass in a spread object with routerProps into login props
                render={(routerProps) => <Login {...routerProps} handleUserLogin={props.handleUserLogin}/>}
             />
-            <Route exact path="/movie" component={Movie} />
+            {/* <Route exact path="/movie" component={Movie} /> */}
+            <PrivateRoute exact path="/movie" component={Movie}/>
             <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} />
          </>
       </Router>
