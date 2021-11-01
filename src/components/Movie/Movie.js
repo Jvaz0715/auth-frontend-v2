@@ -46,8 +46,9 @@ export class Movie extends Component {
                   pathname: `/movie-detail/${item.Title}`,
                   search: `?t=${item.Title}`,
                }}
+               key={item.imdbID}
             >
-               <div className="movie-info-div" key={item.imdbID} style={{width: 300 }}>
+               <div className="movie-info-div" style={{width: 300 }}>
                   <img src={item.Poster} alt={item.Title}/>
                   {item.Title}
                </div>
