@@ -11,8 +11,7 @@ export class App extends Component {
     user: null,
   };
 
-  // we create a function to handle user login that will work off the localstorage token created if successfully logged in through login.js
-
+  // we create a function to handle user login that will be added to our login handleonsubmit and use the decoded jwt token in place of user as an argument
   handleUserLogin = (user) => {
     this.setState({
       user: {

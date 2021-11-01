@@ -25,7 +25,9 @@ const MainRouter = (props) => {
                // component={Login} 
                // handleUserLogin={props.handleUserLogin} cannot be used because it is react router and will show props as history, match etc. use RENDER as a prop
                // if you use render, you dont use component above
-               render={() => <Login handleUserLogin={props.handleUserLogin}/>}
+               // since we are resetting props, we also have to pass a routerProps to get history, match...etc that we lost by doing render. 
+               // we also pass in a spread object with routerProps into login props
+               render={(routerProps) => <Login {...routerProps} handleUserLogin={props.handleUserLogin}/>}
             />
             <Route exact path="/movie" component={Movie} />
          </>

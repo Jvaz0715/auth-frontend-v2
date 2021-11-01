@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { isEmpty, isEmail } from "validator";
 import { toast } from 'react-toastify';
 import Axios from "../utils/Axios";
+import jwtDecode from 'jwt-decode';
 
 export class Login extends Component {
    state = {
@@ -92,10 +93,16 @@ export class Login extends Component {
             password: this.state.password,
          })
 
-         // console.log(result)
          // we also need to add our jwt token to localstorage to be logged in
-         let jwtToken = result.data.payload;
+         let jwtToken = result.data.payload; //we use jwt decode to actually breakdown what we get back as a token
+         let decodedToken = jwtDecode(jwtToken);
+
+         // here we pass this.props.handleUserLogin passed down from app that will take the decodedToken as the argument
+         this.props.handleUserLogin(decodedToken);
          localStorage.setItem("jwtToken", jwtToken);
+
+         // once we have token set, we need to push into the history of login url and change it to /movie when successfully logged in
+         this.props.history.push("/movie");
          
          toast.success(result.data.message, {
             position: "top-center",
@@ -139,7 +146,7 @@ export class Login extends Component {
          emailError,
          passwordError
       } = this.state;
-      console.log(this.props)
+      
       return (
          <div className="container">
             <div className="form-text">Login</div>
