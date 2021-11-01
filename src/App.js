@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify'; //put here to be available to everything
+import jwtDecode from 'jwt-decode'; //to use in component did mount so that we dont lose our logged in on refresh
+
 import MainRouter from './MainRouter';
 
 import "./App.css";
@@ -10,6 +12,18 @@ export class App extends Component {
   state = {
     user: null,
   };
+
+  componentDidMount(){
+    let getJwtToken = window.localStorage.getItem("jwtToken"); //we set this in login.js if successfully logged in and it lives in local storage
+    
+    if(getJwtToken) {
+      // check the current time against the tokens expired time and issued at time, if not expired, keep logged in
+      const currentTime = Date.now() / 1000;
+
+      let decodedJwtToken = jwtDecode(getJwtToken);
+
+    }
+  }
 
   // we create a function to handle user login that will be added to our login handleonsubmit and use the decoded jwt token in place of user as an argument
   handleUserLogin = (user) => {
