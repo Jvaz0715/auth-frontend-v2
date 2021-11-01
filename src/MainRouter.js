@@ -22,7 +22,9 @@ const MainRouter = (props) => {
          /> 
          <>
             <Route exact path="/" component={Home} />
+            
             <Route  exact path="/sign-up" component={Signup} />
+            
             <Route  
                exact path="/login" 
                // component={Login} 
@@ -32,8 +34,15 @@ const MainRouter = (props) => {
                // we also pass in a spread object with routerProps into login props
                render={(routerProps) => <Login {...routerProps} handleUserLogin={props.handleUserLogin}/>}
             />
+
             {/* <Route exact path="/movie" component={Movie} /> */}
-            <PrivateRoute exact path="/movie" component={Movie}/>
+            <PrivateRoute 
+               user={props.user}
+               exact 
+               path="/movie" 
+               component={Movie}
+            />
+
             <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} />
          </>
       </Router>
