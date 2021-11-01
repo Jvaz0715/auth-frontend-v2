@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import Movie from './components/Movie/Movie';
+import MovieDetail from './components/Movie/MovieDetail';
 
 const MainRouter = (props) => {
    // console.log(props)
@@ -31,6 +32,7 @@ const MainRouter = (props) => {
                render={(routerProps) => <Login {...routerProps} handleUserLogin={props.handleUserLogin}/>}
             />
             <Route exact path="/movie" component={Movie} />
+            <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} />
          </>
       </Router>
    )

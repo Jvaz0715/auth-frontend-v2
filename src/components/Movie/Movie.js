@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import "./Movie.css";
 
@@ -40,10 +41,17 @@ export class Movie extends Component {
    showMovieList = () => {
       return this.state.moviesResultArray.map(item => {
          return (
-            <div className="movie-info-div" key={item.imdbID} style={{width: 300 }}>
-               <img src={item.Poster} alt={item.Title}/>
-               {item.Title}
-            </div>
+            <Link
+               to={{
+                  pathname: `/movie-detail/${item.Title}`,
+                  search: `?t=${item.Title}`,
+               }}
+            >
+               <div className="movie-info-div" key={item.imdbID} style={{width: 300 }}>
+                  <img src={item.Poster} alt={item.Title}/>
+                  {item.Title}
+               </div>
+            </Link>
          )
       })
    }
