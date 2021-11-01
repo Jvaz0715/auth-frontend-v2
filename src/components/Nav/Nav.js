@@ -29,9 +29,9 @@ export class Nav extends Component {
                   <li>
                      {/* make ternary that checks if user is authorized or not */}
                      {this.props.user ? (
-                        <NavLink activeClassName="selected" to="/logout">Logout</NavLink>
+                        <NavLink activeStyle={{ borderBottom: "1px solid white"}} to="/" onClick={this.props.handleUserLogout}>Logout</NavLink>
                      ):(
-                        <NavLink activeClassName="selected" to="/login">Login</NavLink>
+                        <NavLink activeStyle={{ borderBottom: "1px solid white"}} to="/login">Login</NavLink>
                      )}
                      
                   </li>

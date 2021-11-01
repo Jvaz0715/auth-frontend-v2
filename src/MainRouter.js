@@ -16,6 +16,7 @@ const MainRouter = (props) => {
          {/*We put this outside as it will be on all pages */}
          <Nav 
             user={props.user}
+            handleUserLogout={props.handleUserLogout}
          /> 
          <>
             <Route exact path="/" component={Home} />

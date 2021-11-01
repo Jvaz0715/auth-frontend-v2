@@ -50,7 +50,7 @@ export class App extends Component {
       user: null,
     });
   };
-  
+
   // ================= render =================
   render() {
     return (
@@ -60,6 +60,7 @@ export class App extends Component {
         <MainRouter 
           user={this.state.user}
           handleUserLogin={this.handleUserLogin}
+          handleUserLogout={this.handleUserLogout}
         />
       </>
     )
