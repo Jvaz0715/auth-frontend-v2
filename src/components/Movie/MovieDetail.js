@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import "./MovieDetail.css";
+
 export class MovieDetail extends Component {
    // create state that will hold the results we want to display which we get from our async componentDidMount
    state = {

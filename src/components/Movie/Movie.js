@@ -27,7 +27,7 @@ export class Movie extends Component {
       try {
          let searchResults = await axios.get(`https://omdbapi.com/?apiKey=${process.env.REACT_APP_MOVIE_API}&s=${this.state.movie}`)
 
-         console.log(searchResults.data.Search)
+         // console.log(searchResults.data.Search)
          this.setState({
             moviesResultArray: searchResults.data.Search,
          })
