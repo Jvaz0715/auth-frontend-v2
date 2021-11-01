@@ -6,6 +6,7 @@ import "./Nav.css";
 export class Nav extends Component {
    // we use props passed down to check if user is null or true to change what nav bar we will display 
    //this.props.user
+   // ================= render =================
    render() {
       return (
          <nav>

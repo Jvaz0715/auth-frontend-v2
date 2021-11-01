@@ -22,8 +22,15 @@ export class App extends Component {
 
       let decodedJwtToken = jwtDecode(getJwtToken);
 
+      // if decoded exp time is less than current time, log out else log in
+      if(decodedJwtToken.exp < currentTime){
+        this.handleUserLogout();
+      } else {
+        this.handleUserLogin(decodedJwtToken)
+      };
+
     }
-  }
+  };
 
   // we create a function to handle user login that will be added to our login handleonsubmit and use the decoded jwt token in place of user as an argument
   handleUserLogin = (user) => {
@@ -34,6 +41,17 @@ export class App extends Component {
     })
   };
 
+  // logout
+  handleUserLogout = () => {
+    // reset user to null AND make sure local storage is cleared
+    window.localStorage.removeItem("jwtToken");
+
+    this.setState({
+      user: null,
+    });
+  };
+  
+  // ================= render =================
   render() {
     return (
       <>

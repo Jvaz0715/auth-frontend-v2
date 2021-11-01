@@ -14,6 +14,20 @@ export class Login extends Component {
       passwordOnFocus: false,
       isButtonDisabled: true,
    };
+   // after render,component did mount will run this logic every time
+   componentDidMount() {
+      // we want to make sure we use token so that if logged in, we dont see the signup login page on hardcoded url
+      let getJwtToken = window.localStorage.getItem("jwtToken");
+
+      if(getJwtToken) {
+         const currentTime = Date.now() / 1000;
+         let decodedJwtToken = jwtDecode(getJwtToken);
+
+         if(currentTime < decodedJwtToken.exp) {
+            this.props.history.push("/movie")
+         }
+      }
+   };
 
    handleOnChange = (event) => {
       this.setState({
@@ -137,8 +151,9 @@ export class Login extends Component {
             });
          }
       }
-   }
+   };
 
+   // ================= render =================
    render() {
       const {
          email,

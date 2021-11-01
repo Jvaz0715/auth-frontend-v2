@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; //validator will help us validate proper data input on client-side
 import { toast } from 'react-toastify';
 import Axios from "../utils/Axios";
-// import axios from "axios";
+import jwtDecode from 'jwt-decode';
 
 import "./Signup.css";
 
@@ -27,6 +27,20 @@ export class Signup extends Component {
       passwordOnFocus: false,
       confirmPasswordOnFocus: false,
       isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
+   };
+
+   componentDidMount() {
+      // we want to make sure we use token so that if logged in, we dont see the signup login page on hardcoded url
+      let getJwtToken = window.localStorage.getItem("jwtToken");
+
+      if(getJwtToken) {
+         const currentTime = Date.now() / 1000;
+         let decodedJwtToken = jwtDecode(getJwtToken);
+
+         if(currentTime < decodedJwtToken.exp) {
+            this.props.history.push("/movie")
+         }
+      }
    };
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
@@ -308,7 +322,7 @@ export class Signup extends Component {
       }
    };
 
-   // ============== Render ==============
+   // ================= render =================
    render() {
 
       const {
