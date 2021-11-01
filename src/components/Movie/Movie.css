@@ -1,0 +1,26 @@
+.movie-container {
+   /* border: 1px solid green; */
+   margin-top: 20px;
+   display: flex;
+   justify-content: center;
+}
+
+.movie-search-container input {
+   width: 400px;
+   height: 32px;
+}
+
+.movie-search-container button {
+   height: 36px;
+   width: 76px;
+   background-color: black;
+   color: white;
+   border-style: none;
+   border-radius: 5px;
+   margin-left: 5px;
+   box-shadow: 2px 2px 2px gray;
+}
+
+.movie-search-container button:hover {
+   background-color: gray;
+}
