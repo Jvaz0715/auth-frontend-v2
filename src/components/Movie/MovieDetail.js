@@ -11,15 +11,15 @@ export class MovieDetail extends Component {
       year: "",
       plot: "",
       isLoading: true, //if page takes long to load, we want to let client know something is being worked on
-      toggleShare: false, //to toggle share movie
+      // toggleShare: false, //to toggle share movie
    }
    // this componentdidmount is most important as we are querying right away! otherwise it would only show up "on refresh"
    async componentDidMount() {
       try{
          let result = await axios.get(`https://omdbapi.com/?apikey=${process.env.REACT_APP_MOVIE_API}&t=${this.props.match.params.movieTitle}`);
 
-         // console.log('result of movie detail axios get');
-         // console.log(result);
+         console.log('result of movie detail axios get');
+         console.log(result);
          this.setState({
             poster: result.data.Poster,
             title: result.data.Title,
@@ -40,7 +40,18 @@ export class MovieDetail extends Component {
                <h1>{this.state.title} ({this.state.year})</h1>
                <p>{this.state.plot}</p>
                <div className="share-button-container">
-                  <button className="share-button">Share Movie with Friends!</button>
+                  <form onSubmit={this.handleFormSubmit}>
+                     <input 
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        placeholder="Enter a friends Number"
+                        required
+                     />
+                     <textarea placeholder="Check out this movie!"></textarea>
+                     <button type="submit" className="share-button">Share Movie with Friends!</button>
+                  </form>
                </div>
             </div>
             
