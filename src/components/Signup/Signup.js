@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; //validator will help us validate proper data input on client-side
 import { toast } from 'react-toastify';
 import Axios from "../utils/Axios";
-import jwtDecode from 'jwt-decode';
+// import jwtDecode from 'jwt-decode';
 import checkIfUserIsAuth from '../utils/checkIfUserIsAuth';
 
 import "./Signup.css";
