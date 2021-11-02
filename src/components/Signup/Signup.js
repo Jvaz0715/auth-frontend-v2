@@ -3,8 +3,10 @@ import { isAlpha, isEmail, isAlphanumeric, isStrongPassword } from "validator"; 
 import { toast } from 'react-toastify';
 import Axios from "../utils/Axios";
 import jwtDecode from 'jwt-decode';
+import checkIfUserIsAuth from '../utils/checkIfUserIsAuth';
 
 import "./Signup.css";
+
 
 export class Signup extends Component {
    state = {
@@ -29,18 +31,14 @@ export class Signup extends Component {
       isButtonDisabled: true, //an extra layer to make sure button is not enabled if errors exist
    };
 
+   // after render,component did mount will run this logic every time
    componentDidMount() {
-      // we want to make sure we use token so that if logged in, we dont see the signup login page on hardcoded url
-      let getJwtToken = window.localStorage.getItem("jwtToken");
 
-      if(getJwtToken) {
-         const currentTime = Date.now() / 1000;
-         let decodedJwtToken = jwtDecode(getJwtToken);
-
-         if(currentTime < decodedJwtToken.exp) {
-            this.props.history.push("/movie")
-         }
+      let isAuth = checkIfUserIsAuth();
+      if (isAuth) {
+         this.props.history.push("/movie")
       }
+      // we want to make sure we use token so that if logged in, we dont see the signup login page on hardcoded url
    };
 
    // with so many inputs, making a dynamic way to intake and change state makes more sense
