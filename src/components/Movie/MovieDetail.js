@@ -11,6 +11,7 @@ export class MovieDetail extends Component {
       year: "",
       plot: "",
       isLoading: true, //if page takes long to load, we want to let client know something is being worked on
+      toggleShare: false, //to toggle share movie
    }
    // this componentdidmount is most important as we are querying right away! otherwise it would only show up "on refresh"
    async componentDidMount() {
@@ -34,12 +35,15 @@ export class MovieDetail extends Component {
    // workout showMoviedetail() function video mm:1:41:08
    showMovieDetail = () => {
       return(
-         <div className="movie-detail-container">
-            <img src={this.state.poster} alt={this.state.title} />
-            <h1>{this.state.title} ({this.state.year})</h1>
-            <p>{this.state.plot}</p>
-         
-         </div>
+            <div className="movie-detail-container">
+               <img src={this.state.poster} alt={this.state.title} />
+               <h1>{this.state.title} ({this.state.year})</h1>
+               <p>{this.state.plot}</p>
+               <div className="share-button-container">
+                  <button className="share-button">Share Movie with Friends!</button>
+               </div>
+            </div>
+            
       )
    }
 

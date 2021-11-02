@@ -10,6 +10,26 @@ export class Movie extends Component {
       moviesResultArray: [],
    };
 
+   // we use componentDidMount to keep our search persisting if and when searched a movie
+      // since component did mount runs after state is rendered/updated, if there is a set session it will grab it
+      // we have to make it an async await
+   
+   async componentDidMount() {
+      try{
+         let searchedMovieTitle = window.sessionStorage.getItem("searchedMovieTitle");
+         // if there is a session stored movie title: run logic
+         if (searchedMovieTitle) {
+            let searchResults = await axios.get(`https://omdbapi.com/?apiKey=${process.env.REACT_APP_MOVIE_API}&s=${searchedMovieTitle}`);
+
+            this.setState({
+               moviesResultArray: searchResults.data.Search,
+            })
+         }
+      } catch(e) {
+         console.log(e)
+      }
+   }
+
    handleOnChange = (e) => {
       this.setState(
          {
@@ -28,6 +48,10 @@ export class Movie extends Component {
          let searchResults = await axios.get(`https://omdbapi.com/?apiKey=${process.env.REACT_APP_MOVIE_API}&s=${this.state.movie}`)
 
          // console.log(searchResults.data.Search)
+         //in order to get our search to persist on the move page even after we go into a movie detail and want to to return
+            // we need to set a sessionStorage key
+         window.sessionStorage.setItem("searchedMovieTitle", this.state.movie);
+         
          this.setState({
             moviesResultArray: searchResults.data.Search,
          })
@@ -50,7 +74,7 @@ export class Movie extends Component {
             >
                <div className="movie-info-div" style={{width: 300 }}>
                   <img src={item.Poster} alt={item.Title}/>
-                  {item.Title}
+                  {item.Title} ({item.Year})
                </div>
             </Link>
          )

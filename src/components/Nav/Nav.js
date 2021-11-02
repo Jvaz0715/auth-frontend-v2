@@ -17,6 +17,12 @@ export class Nav extends Component {
             </div>
             <div className="right-side-nav">
                <ul>
+                  {/* add a movie link if this.props.user exists */}
+                  {this.props.user &&
+                     <li>
+                        <NavLink activeClassName="selected" to="/movie">Search Movies</NavLink>
+                     </li>
+                  }
                   <li>
                      {/* make ternary that checks if user is authorized or not */}
                      {this.props.user ? (
@@ -29,9 +35,9 @@ export class Nav extends Component {
                   <li>
                      {/* make ternary that checks if user is authorized or not */}
                      {this.props.user ? (
-                        <NavLink activeStyle={{ borderBottom: "1px solid white"}} to="/" onClick={this.props.handleUserLogout}>Logout</NavLink>
+                        <NavLink  to="/" onClick={this.props.handleUserLogout}>Logout</NavLink>
                      ):(
-                        <NavLink activeStyle={{ borderBottom: "1px solid white"}} to="/login">Login</NavLink>
+                        <NavLink activeClassName="selected" to="/login">Login</NavLink>
                      )}
                      
                   </li>
