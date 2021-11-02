@@ -37,7 +37,6 @@ const MainRouter = (props) => {
 
             {/* <Route exact path="/movie" component={Movie} /> */}
             <PrivateRoute 
-               user={props.user}
                exact 
                path="/movie" 
                component={Movie}
@@ -45,7 +44,6 @@ const MainRouter = (props) => {
 
             {/* <Route exact path="/movie-detail/:movieTitle" component={MovieDetail} /> */}
             <PrivateRoute 
-               user={props.user}
                exact
                path="/movie-detail/:movieTitle" 
                component={MovieDetail}
