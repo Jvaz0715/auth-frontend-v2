@@ -15,7 +15,7 @@ export class Movie extends Component {
       // we have to make it an async await
    
    async componentDidMount() {
-      // so that our movie page isnt blank until we search something, lets have a static array of movies to display
+      // so that our movie page isn't blank until we search something, lets have a static array of movies to display
 
       let randomMovieArray = [
          "Thanksgiving",
