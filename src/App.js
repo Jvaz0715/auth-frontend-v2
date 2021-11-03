@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify'; //put here to be available to e
 import jwtDecode from 'jwt-decode'; //to use in component did mount so that we dont lose our logged in on refresh
 
 import MainRouter from './MainRouter';
+import setAxiosAuthToken from './components/utils/setAxiosAuthToken';
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,6 +47,7 @@ export class App extends Component {
     // reset user to null AND make sure local storage is cleared
     window.localStorage.removeItem("jwtToken");
 
+    setAxiosAuthToken(null);
     this.setState({
       user: null,
     });
