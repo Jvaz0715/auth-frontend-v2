@@ -18,11 +18,13 @@ export class Movie extends Component {
       // so that our movie page isnt blank until we search something, lets have a static array of movies to display
 
       let randomMovieArray = [
-         "Pulp Fiction",
-         "Interstellar",
-         "The Dark Knight",
-         "Coco",
-         "Endgame",
+         "Thanksgiving",
+         "Christmas",
+         "Home Alone",
+         "Navidad",
+         "Christmas Eve",
+         "Kwanzaa",
+         "Hanukkah"
       ];
 
       let randomSelectedMovieIndex = Math.floor(Math.random() * randomMovieArray.length);
