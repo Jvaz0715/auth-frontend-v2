@@ -15,7 +15,19 @@ export class Movie extends Component {
       // we have to make it an async await
    
    async componentDidMount() {
-      try{
+      // so that our movie page isnt blank until we search something, lets have a static array of movies to display
+
+      let randomMovieArray = [
+         "Pulp Fiction",
+         "Interstellar",
+         "The Dark Knight",
+         "Coco",
+         "Endgame",
+      ];
+
+      let randomSelectedMovieIndex = Math.floor(Math.random() * randomMovieArray.length);
+
+      try {
          let searchedMovieTitle = window.sessionStorage.getItem("searchedMovieTitle");
          // if there is a session stored movie title: run logic
          if (searchedMovieTitle) {
@@ -23,8 +35,23 @@ export class Movie extends Component {
 
             this.setState({
                moviesResultArray: searchResults.data.Search,
-            })
-         }
+            });
+         } else {
+            let randomMovieData = await axios.get(`https://omdbapi.com/?apiKey=${process.env.REACT_APP_MOVIE_API}&s=${randomMovieArray[randomSelectedMovieIndex]}`);
+
+            this.setState({
+               moviesResultArray: randomMovieData.data.Search,
+            });
+         };
+      } catch(e) {
+         console.log(e);
+      };
+   };
+
+   // refactored movieSearch
+   handleSearchMovie = async () => {
+      try {
+
       } catch(e) {
          console.log(e)
       }
