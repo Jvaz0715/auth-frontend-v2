@@ -1,6 +1,6 @@
 .movie-detail-container {
    /* border: 2px solid red; */
-   margin-top: 30px;
+   margin-top: 10px;
    margin-bottom: 30px;
    display: flex;
    flex-direction: column;
@@ -10,8 +10,8 @@
 .movie-detail-container h1 {
    font-size: 36px;
    font-weight: bold;
-   margin-top: 10px;
-   margin-bottom: 10px;
+   margin-top: 5px;
+   margin-bottom: 5px;
 }
 
 .movie-detail-container p {
@@ -21,7 +21,7 @@
 }
 
 .share-button-container {
-   margin-top: 10px;
+   margin-top: 5px;
 }
 
 .share-button {
