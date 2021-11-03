@@ -40,18 +40,12 @@ export class MovieDetail extends Component {
       try {
          let message = `${this.state.textareaInput}. The movie is called ${this.state.title}`;
          let parsedPhoneNumber = this.state.telInput.split("-").join("");
-         let result = await Axios.post(
-            "/api/twilio/send-sms", 
-            {
+         let result = await Axios.post("/api/twilio/send-sms", {
                to: parsedPhoneNumber,
                message: message,
-            },
-            {
-               headers: {
-                  Authorization: `Bearer ${window.localStorage.getItem("jwtToken")}`,
-               },
-            }
-         );
+         });
+
+         console.log(result)
       } catch(e) {
          console.log(e)
       };

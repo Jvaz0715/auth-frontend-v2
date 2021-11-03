@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import Axios from "../utils/Axios";
 import jwtDecode from 'jwt-decode';
 import checkIfUserIsAuth from '../utils/checkIfUserIsAuth';
+import setAxiosAuthToken from '../utils/setAxiosAuthToken';
+
 
 export class Login extends Component {
    state = {
@@ -110,6 +112,7 @@ export class Login extends Component {
          // here we pass this.props.handleUserLogin passed down from app that will take the decodedToken as the argument
          this.props.handleUserLogin(decodedToken);
          localStorage.setItem("jwtToken", jwtToken);
+         setAxiosAuthToken(jwtToken); //this will automatically set our headers so we do not need to keep checking headers for each api call
 
          // once we have token set, we need to push into the history of login url and change it to /movie when successfully logged in
          this.props.history.push("/movie");
