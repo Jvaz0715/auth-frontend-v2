@@ -33,7 +33,7 @@ export class Signup extends Component {
 
    // after render,component did mount will run this logic every time
    componentDidMount() {
-
+      console.log(this.props)
       let isAuth = checkIfUserIsAuth();
       if (isAuth) {
          this.props.history.push("/movie")
